@@ -12,6 +12,7 @@ and document.oncontextmenu = function(){
 4. Validity of various values being checked at the user side, some were in oncloselogout.js, but most in httpclient.js (after line 180 in httpclient.js)... Block the url, and somehow insert your own javascript, and use this for vulnerability
 5. Apart for checking validity, some characters are being replaced too... in oncloselogout.js and in httpclient.js, like in function checkSubmit() all "'" are replaced by "''" in username
 6. The live requests are being managed by the functions 'sendLiveRequest()' and 'setTimeForLiveRequest(a)', in the latter one, the former is being called out after a timeout of a*1000, and the latter itself is being called by setTimeForLiveRequest(liveReqTimeInJS) on line 388
+[UPDATE - 24th Feb] The TimeForLiveRequest is actually 180 seconds exact, so 'a' is 180, and difference is due to the milliseconds, so better send it at intervals of less than 180 seconds
 
 GET - oncloselogout.js?ver=59125
 ==============================================
