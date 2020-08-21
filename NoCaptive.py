@@ -3,31 +3,26 @@ import requests
 #TODO - Add feature to check for 'live' or not, and define the request payload
 #Check the geckodriver
 
+	#Add your own login url here
 login_url = "http://172.172.172.100:8090/httpclient.html"
-username = "190234"
-passwd = "Adi@15035"
+username = "<your_username_OR_enrollmentNum>"
+passwd = "<your_password>"
 
 global login_session
 login_session = requests.Session()
 
+	#This is login without a browser
 def requests_login(action_val): #action_val=0 means login
     header = {
         'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0'
-#        'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36'
     }
 
     form_data = {
         "mode":"191",
         "username": username,
         "password": passwd,
-        "a":"1581616003458",
-        "producttype":"0"
-        }
-
-    logout_data = {
-        "mode":"193",
-        "username": username,
-        "a":"1581619053328",
+	    #On our LAN login page, the form had this 'a' field (was hidden), you will have to find yours LOGIN page form tag
+        "a":"1581616003458",	
         "producttype":"0"
         }
 
@@ -42,11 +37,13 @@ def requests_login(action_val): #action_val=0 means login
         logout_resp = login_session.post(login_url, data = logout_data, headers = header)
         print(logout_resp)
 
+	#This is automated login on browser, this requires research on finding login on your side 
 def selenium_login():
     import selenium
     from selenium import webdriver
     import time
 
+	#GeckoDriver(in case of firefox, for chrome, use the chrome webdriver) path
     path_to_geckodriver = r"C:\Users\adity\Desktop" #the r'' allows us to pass backslash instead of forwardslash
     ######SHOWING DIRECTORY NAME INVALID, EVEN THOUGH LOCATION VERIFIED
     global __userid
@@ -55,8 +52,8 @@ def selenium_login():
     def try_cred():
         global __userid
         global __passwd
-        __userid = "190234"
-        __passwd = "Adi@15035"
+        __userid = "<your_username_OR_enrollmentNum>"
+        __passwd = "<your_password>"
 
     def get_cred():
         global __userid
